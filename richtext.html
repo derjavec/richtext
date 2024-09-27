@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rich Text Editor</title>
+  <!-- Incluye los estilos de Quill -->
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+<body>
+  <h2>Write your message</h2>
+  
+  <!-- Editor Quill -->
+  <div id="editor-container" style="height: 200px;"></div>
+  <button id="submit-button">Submit</button>
+
+  <!-- Incluye el script de Quill -->
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  
+  <script>
+    // Inicializa Quill
+    var quill = new Quill('#editor-container', {
+      theme: 'snow'
+    });
+
+    // Envía el contenido del editor a Thunkable cuando el usuario haga clic en "Submit"
+    document.getElementById('submit-button').addEventListener('click', function () {
+      var htmlContent = quill.root.innerHTML;
+      window.ReactNativeWebView.postMessage(htmlContent);  // Envía el contenido a Thunkable
+    });
+  </script>
+</body>
+</html>
