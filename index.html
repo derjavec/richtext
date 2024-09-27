@@ -1,33 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rich Text Editor</title>
+
   <!-- Incluye los estilos de Quill -->
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-</head>
-<body>
-  <h2>Write your message</h2>
   
+  <!-- Añade la fuente Ubuntu -->
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400&display=swap" rel="stylesheet">
+  
+  <!-- Estilos personalizados -->
+  <style>
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    h2 {
+      font-size: 15px;
+      font-weight: 400; /* Sin negrita */
+      color: #888888; /* Color gris */
+      margin-bottom: 20px;
+    }
+
+    #editor-container {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      height: 200px;
+      padding: 10px;
+      background-color: #ffffff;
+    }
+
+    #submit-button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: rgba(189, 16, 224, 0.58); /* Color lila semitransparente */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Ubuntu', sans-serif;
+    }
+
+    #submit-button:hover {
+      background-color: rgba(189, 16, 224, 0.8);
+    }
+
+    /* Centrar el botón */
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Cambia el texto del hint en gris y con fuente Ubuntu -->
+  <h2>Write your message directly, or switch to 'AI Help Me' mode to create a prompt that explains what you'd like AI to write for you.</h2>
+
   <!-- Editor Quill -->
-  <div id="editor-container" style="height: 200px;"></div>
-  <button id="submit-button">Submit</button>
+  <div id="editor-container"></div>
+  
+  <!-- Contenedor para centrar el botón -->
+  <div class="button-container">
+    <button id="submit-button">Done!</button>
+  </div>
 
   <!-- Incluye el script de Quill -->
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-  
+
   <script>
     // Inicializa Quill
     var quill = new Quill('#editor-container', {
       theme: 'snow'
     });
 
-    // Envía el contenido del editor a Thunkable cuando el usuario haga clic en "Submit"
+    // Envía el contenido del editor a Thunkable cuando el usuario haga clic en "Done!"
     document.getElementById('submit-button').addEventListener('click', function () {
       var htmlContent = quill.root.innerHTML;
       window.ReactNativeWebView.postMessage(htmlContent);  // Envía el contenido a Thunkable
     });
   </script>
+
 </body>
+
 </html>
